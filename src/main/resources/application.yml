@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: plan-n-track-service
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5130}/${DB_NAME:test}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:0}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # validate, create, create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
