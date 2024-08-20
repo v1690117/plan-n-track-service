@@ -31,7 +31,7 @@ public class WorkoutController {
     @PostMapping("/workouts")
     public WorkoutDto newWorkout(@RequestBody WorkoutDto dto) {
         if (dto.getDate() == null) {
-            dto.setDate(new Date());
+            dto.setDate(new Date().getTime());
         }
         return workoutMapper.map(
                 repository.save(
