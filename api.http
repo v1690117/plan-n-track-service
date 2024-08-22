@@ -7,5 +7,23 @@ POST http://localhost:8080/workouts
 Content-Type: application/json
 
 {
-  "title": "First workout ever!"
+  "title": "Second workout ever!"
 }
+
+###
+# @no-log
+GET http://localhost:8080/workouts/2/sets
+
+###
+# @no-log
+POST http://localhost:8080/workouts/2/sets
+Content-Type: application/json
+
+{
+  "title": "Жим",
+  "load": 80,
+  "reps": 4,
+  "index": 4,
+  "rest": 120
+}
+
