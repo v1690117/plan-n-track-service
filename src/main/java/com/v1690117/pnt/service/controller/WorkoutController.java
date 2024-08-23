@@ -31,6 +31,11 @@ public class WorkoutController {
         return re;
     }
 
+    @GetMapping("/workouts/{id}")
+    public WorkoutDto getWorkout(@PathVariable Long id) {
+        return repository.findById(id).map(workoutMapper::map).orElseThrow();
+    }
+
     @PostMapping("/workouts")
     public WorkoutDto newWorkout(@RequestBody WorkoutDto dto) {
         if (dto.getDate() == null) {
