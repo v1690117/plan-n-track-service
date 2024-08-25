@@ -62,6 +62,7 @@ public class WorkoutController {
     public void addSet(@PathVariable Long id, @RequestBody SetDto set) {
         var wo = repository.findById(id).orElseThrow();
         var newSet = workoutMapper.map(set);
+        newSet.setCompleted(false);
         wo.getSets().add(newSet);
         newSet.setWorkout(wo);
         repository.save(wo);

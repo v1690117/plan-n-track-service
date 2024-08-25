@@ -12,4 +12,5 @@ public class SetDto {
     private Integer reps;
     private Integer index;
     private Integer rest;
+    private Boolean completed;
 }

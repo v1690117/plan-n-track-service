@@ -21,6 +21,7 @@ public class Set {
     private Integer reps;
     private Integer index;
     private Integer rest;
+    private Boolean completed;
     @ManyToOne
     @JoinColumn(name = "workout_id")
     private Workout workout;
