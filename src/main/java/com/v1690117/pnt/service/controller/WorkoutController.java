@@ -63,6 +63,12 @@ public class WorkoutController {
         var wo = repository.findById(id).orElseThrow();
         var newSet = workoutMapper.map(set);
         newSet.setCompleted(false);
+        if (wo.getSets().size() != 0) {
+            var latestSet = wo.getSets().get(wo.getSets().size() - 1);
+            newSet.setReps(latestSet.getReps());
+            newSet.setLoad(latestSet.getLoad());
+            newSet.setRest(latestSet.getRest());
+        }
         wo.getSets().add(newSet);
         newSet.setWorkout(wo);
         repository.save(wo);
