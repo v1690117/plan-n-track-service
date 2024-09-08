@@ -27,3 +27,15 @@ Content-Type: application/json
   "rest": 120
 }
 
+###
+# @no-log
+PATCH  http://localhost:8080/sets/15
+Content-Type: application/json
+
+{
+  "title": "Жим!",
+  "load": 101100,
+  "reps": 4,
+  "index": 4,
+  "rest": 120
+}
