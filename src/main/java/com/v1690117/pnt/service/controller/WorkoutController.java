@@ -1,5 +1,6 @@
 package com.v1690117.pnt.service.controller;
 
+import com.v1690117.pnt.service.CurrentUserService;
 import com.v1690117.pnt.service.dto.SetDto;
 import com.v1690117.pnt.service.dto.WorkoutDto;
 import com.v1690117.pnt.service.mapper.WorkoutMapper;
@@ -21,11 +22,13 @@ import java.util.List;
 public class WorkoutController {
     private final WorkoutRepository repository;
     private final WorkoutMapper workoutMapper;
+    private final CurrentUserService currentUserService;
 
     @GetMapping("/workouts")
     public List<WorkoutDto> getAll() {
+        var user = currentUserService.getCurrentUser();
         List<WorkoutDto> re = new ArrayList<>();
-        for (var workout : repository.findAll()) {
+        for (var workout : repository.findAllByUser(user)) {
             re.add(workoutMapper.map(workout));
         }
         return re;
@@ -33,6 +36,7 @@ public class WorkoutController {
 
     @GetMapping("/workouts/{id}")
     public WorkoutDto getWorkout(@PathVariable Long id) {
+        // todo by id and user?
         return repository.findById(id).map(workoutMapper::map).orElseThrow();
     }
 
@@ -41,15 +45,18 @@ public class WorkoutController {
         if (dto.getDate() == null) {
             dto.setDate(new Date().getTime());
         }
+        var wo = workoutMapper.map(dto);
+        wo.setUser(currentUserService.getCurrentUser());
         return workoutMapper.map(
                 repository.save(
-                        workoutMapper.map(dto)
+                        wo
                 )
         );
     }
 
     @GetMapping("/workouts/{id}/sets")
     public List<SetDto> getSets(@PathVariable Long id) {
+        // todo check user
         var wo = repository.findById(id);
         List<SetDto> res = new ArrayList<>();
         wo.map(Workout::getSets).ifPresent(sets -> sets.forEach(
@@ -60,6 +67,7 @@ public class WorkoutController {
 
     @PostMapping("/workouts/{id}/sets")
     public void addSet(@PathVariable Long id, @RequestBody SetDto set) {
+        // todo check user
         var wo = repository.findById(id).orElseThrow();
         var newSet = workoutMapper.map(set);
         newSet.setCompleted(false);

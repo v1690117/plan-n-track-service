@@ -18,6 +18,7 @@ public class SetController {
 
     @PatchMapping("/sets/{setId}")
     public ResponseEntity<?> updateSet(@PathVariable Long setId, @RequestBody SetDto setDto) {
+        // todo check user
         var set = setRepository.findById(setId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Set not found"));
         if (setDto.getLoad() != null) {
