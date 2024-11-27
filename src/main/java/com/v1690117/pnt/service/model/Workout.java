@@ -23,7 +23,7 @@ import java.util.List;
 @Entity
 public class Workout {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "workouts_seq")
     private Long id;
     private String title;
     private Date date;
