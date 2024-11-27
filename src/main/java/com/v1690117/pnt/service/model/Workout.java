@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderColumn;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import java.util.List;
 public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "workouts_seq")
+    @SequenceGenerator(name = "workouts_seq", sequenceName = "workouts_seq", initialValue = 1000, allocationSize = 1)
     private Long id;
     private String title;
     private Date date;
