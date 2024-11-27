@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +16,7 @@ import lombok.Setter;
 @Table(name = "sets")
 public class Set {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sets_seq")
-    @SequenceGenerator(name = "sets_seq", sequenceName = "sets_seq", initialValue = 1000, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private Float load;
