@@ -2,7 +2,7 @@ spring:
   application:
     name: plan-n-track-service
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5130}/${DB_NAME:test}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:test}
     username: ${DB_USER:postgres}
     password: ${DB_PASS:0}
     driver-class-name: org.postgresql.Driver
@@ -13,10 +13,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  #  security:
-  #    user:
-  #      name: ${USERNAME:user}
-  #      password: ${PASSWORD:password}
   security:
     oauth2:
       client:
@@ -25,3 +21,6 @@ spring:
             clientId: ${GITHUB_CLIENT_ID}
             clientSecret: ${GITHUB_CLIENT_SECRET}
             redirect-uri: ${HOME_PAGE:http://localhost:8080}/login/oauth2/code/github
+server:
+  servlet:
+    context-path: /api
