@@ -21,6 +21,3 @@ spring:
             clientId: ${GITHUB_CLIENT_ID}
             clientSecret: ${GITHUB_CLIENT_SECRET}
             redirect-uri: ${HOME_PAGE:http://localhost:8080}/login/oauth2/code/github
-server:
-  servlet:
-    context-path: /api
