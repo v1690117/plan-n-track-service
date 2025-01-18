@@ -1,15 +1,19 @@
-package com.v1690117.pnt.service;
+package com.v1690117.pnt.service.service;
 
 import com.v1690117.pnt.service.model.User;
 import com.v1690117.pnt.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import static com.v1690117.pnt.service.Constants.PROFILE_PRODUCTION;
+
+@Profile(PROFILE_PRODUCTION)
 @RequiredArgsConstructor
 @Service
-public class CurrentUserService {
+public class ProductionUserService implements UserService {
     private final UserRepository userRepository;
 
     public User getCurrentUser() {

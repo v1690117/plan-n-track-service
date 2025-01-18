@@ -3,6 +3,7 @@ package com.v1690117.pnt.service.config;
 import com.v1690117.pnt.service.auth.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,9 +11,12 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
+import static com.v1690117.pnt.service.Constants.PROFILE_PRODUCTION;
+
+@Profile(PROFILE_PRODUCTION)
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class ProductionWebSecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService) throws Exception {
         return http.authorizeHttpRequests(

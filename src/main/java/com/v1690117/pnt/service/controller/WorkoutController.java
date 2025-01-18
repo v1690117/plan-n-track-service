@@ -1,11 +1,11 @@
 package com.v1690117.pnt.service.controller;
 
-import com.v1690117.pnt.service.CurrentUserService;
 import com.v1690117.pnt.service.dto.SetDto;
 import com.v1690117.pnt.service.dto.WorkoutDto;
 import com.v1690117.pnt.service.mapper.WorkoutMapper;
 import com.v1690117.pnt.service.model.Workout;
 import com.v1690117.pnt.service.repository.WorkoutRepository;
+import com.v1690117.pnt.service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,7 @@ import java.util.List;
 public class WorkoutController {
     private final WorkoutRepository repository;
     private final WorkoutMapper workoutMapper;
-    private final CurrentUserService currentUserService;
+    private final UserService currentUserService;
 
     @GetMapping("/workouts")
     public List<WorkoutDto> getAll() {
