@@ -16,7 +16,10 @@ import static com.v1690117.pnt.service.Constants.PROFILE_NOT_PRODUCTION;
 @EnableWebSecurity
 public class DevelopmentWebSecurityConfig {
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService) throws Exception {
+    public SecurityFilterChain configure(
+            HttpSecurity http,
+            CustomOAuth2UserService customOAuth2UserService
+    ) throws Exception {
         return http.authorizeHttpRequests(a -> a.anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();

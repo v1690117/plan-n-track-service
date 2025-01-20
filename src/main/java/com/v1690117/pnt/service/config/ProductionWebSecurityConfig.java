@@ -18,9 +18,13 @@ import static com.v1690117.pnt.service.Constants.PROFILE_PRODUCTION;
 @EnableWebSecurity
 public class ProductionWebSecurityConfig {
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService) throws Exception {
+    public SecurityFilterChain configure(
+            HttpSecurity http, CustomOAuth2UserService customOAuth2UserService
+    ) throws Exception {
         return http.authorizeHttpRequests(
-                        a -> a.requestMatchers("/login", "/login.html", "/error", "/webjars/**").permitAll()
+                        a -> a.requestMatchers(
+                                        "/login", "/login.html", "/error", "/webjars/**"
+                                ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(e -> e
