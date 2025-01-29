@@ -7,6 +7,7 @@ import com.v1690117.pnt.service.model.Workout;
 import com.v1690117.pnt.service.repository.WorkoutRepository;
 import com.v1690117.pnt.service.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,5 +81,15 @@ public class WorkoutController {
         wo.getSets().add(newSet);
         newSet.setWorkout(wo);
         repository.save(wo);
+    }
+
+    @DeleteMapping("/workouts/{id}")
+    public void deleteWorkout(@PathVariable Long id) {
+        var user = currentUserService.getCurrentUser();
+        var workout = repository.findById(id).orElseThrow();
+        if (!workout.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Operation not permitted!");
+        }
+        repository.deleteById(id);
     }
 }
