@@ -2,6 +2,7 @@ package com.v1690117.pnt.service.controller;
 
 import com.v1690117.pnt.service.dto.SetDto;
 import com.v1690117.pnt.service.repository.SetRepository;
+import com.v1690117.pnt.service.repository.WorkoutRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 @RestController
 public class SetController {
+    private final WorkoutRepository workoutRepository;
     private final SetRepository setRepository;
 
     @PatchMapping("/sets/{setId}")
@@ -40,6 +42,9 @@ public class SetController {
 
     @DeleteMapping("/sets/{id}")
     public void deleteSet(@PathVariable Long id) {
-        setRepository.deleteById(id);
+        var set = setRepository.findById(id).orElseThrow();
+        var wo = set.getWorkout();
+        wo.getSets().removeIf(s -> s.getId().equals(id));
+        workoutRepository.save(wo);
     }
 }
