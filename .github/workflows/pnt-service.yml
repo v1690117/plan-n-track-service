@@ -12,7 +12,7 @@ jobs:
           distribution: 'adopt'
       - name: Checkstyle
         working-directory: .
-        run: mvn checkstyle:check
+        run: mvn checkstyle:check -q
       - name: Compile
         working-directory: .
         run: mvn --batch-mode -q compile
