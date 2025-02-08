@@ -12,4 +12,4 @@ jobs:
           distribution: 'adopt'
       - name: Compile
         working-directory: .
-        run: mvn --batch-mode compile
+        run: mvn --batch-mode -q compile
