@@ -10,6 +10,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - name: Checkstyle
+        working-directory: .
+        run: mvn checkstyle:check
       - name: Compile
         working-directory: .
         run: mvn --batch-mode -q compile
