@@ -16,3 +16,24 @@ jobs:
       - name: Compile
         working-directory: .
         run: mvn --batch-mode -q compile
+  deploy:
+    needs: build
+    if: >
+      success() &&
+       github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create SSH key
+        run: |
+          mkdir -m 700 ~/.ssh/
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+      - name: Call script
+        run: ssh $SERVER_USER@$SERVER_NAME "./update.sh"
+        env:
+          SERVER_USER: ${{secrets.SERVER_USER}}
+          SERVER_NAME: ${{secrets.SERVER_NAME}}
