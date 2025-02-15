@@ -2,13 +2,13 @@ spring:
   application:
     name: plan-n-track-service
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:test}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASS:0}
+    url: ${discovery.db-url}?currentSchema=${discovery.db-schema}
+    username: ${discovery.db-user}
+    password: ${discovery.db-pass}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update # validate, create, create-drop
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -21,3 +21,19 @@ spring:
             clientId: ${GITHUB_CLIENT_ID}
             clientSecret: ${GITHUB_CLIENT_SECRET}
             redirect-uri: ${HOME_PAGE:http://localhost:8080}/login/oauth2/code/github
+  flyway:
+    url: ${discovery.db-url}
+    user: ${discovery.db-user}
+    password: ${discovery.db-pass}
+    schemas: ${discovery.db-schema}
+    enabled: true
+    baseline-on-migrate: true
+
+discovery:
+  db-host: ${DB_HOST:localhost}:${DB_PORT:5432}
+  db-name: ${DB_NAME:test}
+  db-schema: ${DB_SCHEMA:workouts}
+  db-user: ${DB_USER:postgres}
+  db-pass: ${DB_PASS:0}
+
+  db-url: jdbc:postgresql://${discovery.db-host}/${discovery.db-name}
