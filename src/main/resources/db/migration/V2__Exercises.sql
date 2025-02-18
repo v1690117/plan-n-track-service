@@ -1,4 +1,4 @@
-create table exercises
+create table if not exists exercises
 (
     id      bigint not null
         primary key,
@@ -7,8 +7,4 @@ create table exercises
         constraint exercises_user_id_users_fk_constr
             references users
 );
-alter table exercises
-    owner to postgres;
-
-create sequence exercises_seq increment by 1;
-alter sequence exercises_seq owner to postgres;
+create sequence if not exists exercises_seq increment by 1;

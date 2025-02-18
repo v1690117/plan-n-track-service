@@ -1,4 +1,4 @@
-create table users
+create table if not exists users
 (
     id              bigint       not null
         primary key,
@@ -8,10 +8,9 @@ create table users
     external_source varchar(255) not null,
     login           varchar(255) not null
 );
-alter table users
-    owner to postgres;
+create sequence if not exists workouts_seq increment by 1;
 
-create table workouts
+create table if not exists workouts
 (
     id      bigint not null
         primary key,
@@ -21,10 +20,9 @@ create table workouts
         constraint workouts_user_id_users_fk_constr
             references users
 );
-alter table workouts
-    owner to postgres;
+create sequence if not exists users_seq increment by 1;
 
-create table sets
+create table if not exists sets
 (
     id         bigint not null
         primary key,
@@ -39,14 +37,4 @@ create table sets
             references workouts,
     sets_order integer
 );
-alter table sets
-    owner to postgres;
-
-create sequence users_seq increment by 50;
-alter sequence users_seq owner to postgres;
-
-create sequence workouts_seq increment by 50;
-alter sequence workouts_seq owner to postgres;
-
-create sequence sets_seq increment by 50;
-alter sequence sets_seq owner to postgres;
+create sequence if not exists sets_seq increment by 1;
