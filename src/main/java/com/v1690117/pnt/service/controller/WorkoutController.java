@@ -2,7 +2,7 @@ package com.v1690117.pnt.service.controller;
 
 import com.v1690117.pnt.service.dto.SetDto;
 import com.v1690117.pnt.service.dto.WorkoutDto;
-import com.v1690117.pnt.service.mapper.WorkoutMapper;
+import com.v1690117.pnt.service.mapper.DtoMapper;
 import com.v1690117.pnt.service.model.Workout;
 import com.v1690117.pnt.service.repository.WorkoutRepository;
 import com.v1690117.pnt.service.service.UserService;
@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 public class WorkoutController {
     private final WorkoutRepository repository;
-    private final WorkoutMapper workoutMapper;
+    private final DtoMapper workoutMapper;
     private final UserService currentUserService;
 
     @GetMapping("/workouts")

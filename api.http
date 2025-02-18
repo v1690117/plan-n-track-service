@@ -39,3 +39,27 @@ Content-Type: application/json
   "index": 4,
   "rest": 120
 }
+
+###
+# @no-log
+GET http://localhost:8080/exercises
+
+###
+# @no-log
+POST http://localhost:8080/exercises
+Content-Type: application/json
+
+{
+  "title": "Жим штанги лёжа"
+}
+
+###
+# @no-log
+DELETE http://localhost:8080/exercises/2
+Content-Type: application/json
+
+{
+  "title": "Жим штанги лёжа"
+}
+
+###
