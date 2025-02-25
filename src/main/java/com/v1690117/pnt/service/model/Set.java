@@ -26,8 +26,7 @@ public class Set {
     private Integer rest;
     private Boolean completed;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "exercise_id")
-//    @JoinColumn(name = "exercise_id", nullable = false) // todo this is temp
+    @JoinColumn(name = "exercise_id", nullable = false)
     private Exercise exercise;
     @ManyToOne
     @JoinColumn(name = "workout_id")
