@@ -68,9 +68,7 @@ public class WorkoutController {
         var wo = repository.findById(id).orElseThrow();
         var newSet = workoutMapper.map(set);
         newSet.setCompleted(false);
-        if (set.getExerciseId() != null) { // todo this is temp check. then this field must be required.
-            exerciseRepository.findById(set.getExerciseId()).ifPresent(newSet::setExercise);
-        }
+        exerciseRepository.findById(set.getExerciseId()).ifPresent(newSet::setExercise);
         if (!wo.getSets().isEmpty()) {
             var latestSet = wo.getSets().get(wo.getSets().size() - 1);
             newSet.setReps(latestSet.getReps());
