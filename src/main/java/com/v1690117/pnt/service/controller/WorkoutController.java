@@ -4,6 +4,7 @@ import com.v1690117.pnt.service.dto.SetDto;
 import com.v1690117.pnt.service.dto.WorkoutDto;
 import com.v1690117.pnt.service.mapper.DtoMapper;
 import com.v1690117.pnt.service.model.Workout;
+import com.v1690117.pnt.service.repository.ExerciseRepository;
 import com.v1690117.pnt.service.repository.WorkoutRepository;
 import com.v1690117.pnt.service.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class WorkoutController {
     private final WorkoutRepository repository;
     private final DtoMapper workoutMapper;
     private final UserService currentUserService;
+    private final ExerciseRepository exerciseRepository;
 
     @GetMapping("/workouts")
     public List<WorkoutDto> getAll() {
@@ -48,11 +50,7 @@ public class WorkoutController {
         }
         var wo = workoutMapper.map(dto);
         wo.setUser(currentUserService.getCurrentUser());
-        return workoutMapper.map(
-                repository.save(
-                        wo
-                )
-        );
+        return workoutMapper.map(repository.save(wo));
     }
 
     @GetMapping("/workouts/{id}/sets")
@@ -60,9 +58,7 @@ public class WorkoutController {
         // todo check user
         var wo = repository.findById(id);
         List<SetDto> res = new ArrayList<>();
-        wo.map(Workout::getSets).ifPresent(sets -> sets.forEach(
-                set -> res.add(workoutMapper.map(set))
-        ));
+        wo.map(Workout::getSets).ifPresent(sets -> sets.forEach(set -> res.add(workoutMapper.map(set))));
         return res;
     }
 
@@ -72,7 +68,10 @@ public class WorkoutController {
         var wo = repository.findById(id).orElseThrow();
         var newSet = workoutMapper.map(set);
         newSet.setCompleted(false);
-        if (wo.getSets().size() != 0) {
+        if (set.getExerciseId() != null) { // todo this is temp check. then this field must be required.
+            exerciseRepository.findById(set.getExerciseId()).ifPresent(newSet::setExercise);
+        }
+        if (!wo.getSets().isEmpty()) {
             var latestSet = wo.getSets().get(wo.getSets().size() - 1);
             newSet.setReps(latestSet.getReps());
             newSet.setLoad(latestSet.getLoad());

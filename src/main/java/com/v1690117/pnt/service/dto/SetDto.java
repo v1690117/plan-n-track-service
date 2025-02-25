@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class SetDto {
     private Long id;
+    private Long exerciseId;
+    private ExerciseDto exercise;
     private String title;
     private Float load;
     private Integer reps;

@@ -12,11 +12,11 @@ Content-Type: application/json
 
 ###
 # @no-log
-GET http://localhost:8080/workouts/2/sets
+GET http://localhost:8080/workouts/180855/sets
 
 ###
 # @no-log
-POST http://localhost:8080/workouts/2/sets
+POST http://localhost:8080/workouts/180855/sets
 Content-Type: application/json
 
 {
@@ -24,7 +24,8 @@ Content-Type: application/json
   "load": 80,
   "reps": 4,
   "index": 4,
-  "rest": 120
+  "rest": 120,
+  "exerciseId": 5
 }
 
 ###
