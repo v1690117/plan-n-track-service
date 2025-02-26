@@ -9,6 +9,7 @@ import com.v1690117.pnt.service.model.Workout;
 import org.mapstruct.Mapper;
 
 import java.util.Date;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface DtoMapper {
@@ -22,6 +23,8 @@ public interface DtoMapper {
 
     Workout map(WorkoutDto workoutDto);
 
+    List<WorkoutDto> mapWorkouts(List<Workout> workouts);
+
     Exercise map(ExerciseDto exerciseDto);
 
     default Long map(Date value) {
@@ -31,4 +34,6 @@ public interface DtoMapper {
     default Date map(Long value) {
         return value == null ? null : new Date(value);
     }
+
+    List<SetDto> mapSets(List<Set> sets);
 }

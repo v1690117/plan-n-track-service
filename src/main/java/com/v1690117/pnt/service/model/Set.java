@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,4 +33,11 @@ public class Set {
     @ManyToOne
     @JoinColumn(name = "workout_id")
     private Workout workout;
+
+    @Transient
+    private Long exerciseId; // todo how to pass this correctly
+
+    public Long getExerciseId() {
+        return exerciseId == null ? exercise == null ? null : exercise.getId() : exerciseId;
+    }
 }
