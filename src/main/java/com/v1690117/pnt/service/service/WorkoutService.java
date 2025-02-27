@@ -81,7 +81,14 @@ public class WorkoutService {
 
         var newWo = create(mapper.map(newWoDto));
 
-        addSets(newWo.getId(), cloning.getSets().stream().map(mapper::map).map(mapper::map).peek(s -> s.setId(null)).collect(Collectors.toList()));
+        addSets(
+                newWo.getId(),
+                cloning.getSets().stream()
+                        .map(mapper::map)
+                        .map(mapper::map)
+                        .peek(s -> s.setId(null))
+                        .collect(Collectors.toList())
+        );
 
         return newWo.getId();
     }
