@@ -76,3 +76,7 @@ Content-Type: application/json
 {
   "title": "Жим штанги лёжа"
 }
+
+###
+# @no-log
+GET http://localhost:8080/exercises/3/sets

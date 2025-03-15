@@ -1,8 +1,10 @@
 package com.v1690117.pnt.service.controller;
 
 import com.v1690117.pnt.service.dto.ExerciseDto;
+import com.v1690117.pnt.service.dto.SetWithWorkoutDto;
 import com.v1690117.pnt.service.mapper.DtoMapper;
 import com.v1690117.pnt.service.repository.ExerciseRepository;
+import com.v1690117.pnt.service.repository.SetRepository;
 import com.v1690117.pnt.service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 public class ExerciseController {
     private final ExerciseRepository repository;
+    private final SetRepository setRepository;
     private final DtoMapper mapper;
     private final UserService currentUserService;
 
@@ -58,5 +62,13 @@ public class ExerciseController {
             throw new RuntimeException("Operation not permitted!");
         }
         repository.deleteById(id);
+    }
+
+    @GetMapping("/exercises/{id}/sets")
+    public List<SetWithWorkoutDto> getSets(@PathVariable Long id) {
+        return repository.findById(id)
+                .map(setRepository::findAllByExercise)
+                .map(mapper::mapSetWithWorkout)
+                .orElse(Collections.emptyList());
     }
 }
