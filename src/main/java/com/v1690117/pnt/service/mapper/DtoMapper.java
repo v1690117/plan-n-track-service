@@ -2,6 +2,7 @@ package com.v1690117.pnt.service.mapper;
 
 import com.v1690117.pnt.service.dto.ExerciseDto;
 import com.v1690117.pnt.service.dto.SetDto;
+import com.v1690117.pnt.service.dto.SetWithWorkoutDto;
 import com.v1690117.pnt.service.dto.WorkoutDto;
 import com.v1690117.pnt.service.model.Exercise;
 import com.v1690117.pnt.service.model.Set;
@@ -36,4 +37,6 @@ public interface DtoMapper {
     }
 
     List<SetDto> mapSets(List<Set> sets);
+
+    List<SetWithWorkoutDto> mapSetWithWorkout(List<Set> sets);
 }
