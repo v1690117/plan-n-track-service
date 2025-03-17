@@ -46,7 +46,9 @@ public class WorkoutService {
         for (var newSet : newSets) {
             newSet.setCompleted(false);
             if (newSet.getExerciseId() != null) { // todo this is temp check. then this field must be required.
-                exerciseRepository.findById(newSet.getExerciseId()).ifPresent(newSet::setExercise);
+                var exercise = exerciseRepository.findById(newSet.getExerciseId()).orElseThrow();
+                newSet.setExercise(exercise);
+                newSet.setTitle(exercise.getTitle());
             }
             if (wo.getSets() == null) {
                 wo.setSets(new ArrayList<>());
