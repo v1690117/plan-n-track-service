@@ -54,13 +54,15 @@ public class WorkoutService {
                 wo.setSets(new ArrayList<>());
             }
             if ((newSet.getReps() == null || newSet.getReps() == 0) && !wo.getSets().isEmpty()) {
-                wo.getSets().stream()
+                var sets = wo.getSets().stream()
                         .filter(s -> s.getExerciseId() != null && s.getExerciseId().equals(newSet.getExerciseId()))
-                        .findFirst().ifPresent(latestSet -> {
-                            newSet.setReps(latestSet.getReps());
-                            newSet.setLoad(latestSet.getLoad());
-                            newSet.setRest(latestSet.getRest());
-                        });
+                        .toList();
+                if (!sets.isEmpty()) {
+                    var latestSet = sets.get(sets.size() - 1);
+                    newSet.setReps(latestSet.getReps());
+                    newSet.setLoad(latestSet.getLoad());
+                    newSet.setRest(latestSet.getRest());
+                }
             }
             wo.getSets().add(newSet);
             newSet.setWorkout(wo);
