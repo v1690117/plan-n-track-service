@@ -53,7 +53,7 @@ public class WorkoutService {
             if (wo.getSets() == null) {
                 wo.setSets(new ArrayList<>());
             }
-            if (newSet.getReps() == null && !wo.getSets().isEmpty()) {
+            if ((newSet.getReps() == null || newSet.getReps() == 0) && !wo.getSets().isEmpty()) {
                 var latestSet = wo.getSets().get(wo.getSets().size() - 1);
                 newSet.setReps(latestSet.getReps());
                 newSet.setLoad(latestSet.getLoad());
